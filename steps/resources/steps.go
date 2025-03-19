@@ -16,8 +16,8 @@ import (
 	"github.com/cs3org/reva/v2/pkg/utils"
 	"github.com/cucumber/godog"
 	messages "github.com/cucumber/messages/go/v21"
-	"github.com/owncloud/cs3api-validator/featurecontext"
-	"github.com/owncloud/cs3api-validator/helpers"
+	"github.com/opencloud-eu/cs3api-validator/featurecontext"
+	"github.com/opencloud-eu/cs3api-validator/helpers"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -2,11 +2,11 @@ package scenario
 
 import (
 	"github.com/cucumber/godog"
-	"github.com/owncloud/cs3api-validator/featurecontext"
-	"github.com/owncloud/cs3api-validator/steps/login"
-	"github.com/owncloud/cs3api-validator/steps/publicshare"
-	"github.com/owncloud/cs3api-validator/steps/resources"
-	"github.com/owncloud/cs3api-validator/steps/spaces"
+	"github.com/opencloud-eu/cs3api-validator/featurecontext"
+	"github.com/opencloud-eu/cs3api-validator/steps/login"
+	"github.com/opencloud-eu/cs3api-validator/steps/publicshare"
+	"github.com/opencloud-eu/cs3api-validator/steps/resources"
+	"github.com/opencloud-eu/cs3api-validator/steps/spaces"
 )
 
 // featureContext embeds all available feature contexts

@@ -6,7 +6,7 @@ import (
 	rpc "github.com/cs3org/go-cs3apis/cs3/rpc/v1beta1"
 	linkv1beta1 "github.com/cs3org/go-cs3apis/cs3/sharing/link/v1beta1"
 	providerv1beta1 "github.com/cs3org/go-cs3apis/cs3/storage/provider/v1beta1"
-	"github.com/owncloud/cs3api-validator/helpers"
+	"github.com/opencloud-eu/cs3api-validator/helpers"
 )
 
 func (f *PublicShareFeatureContext) UserHasCreatedAPublicshareWithEditorPermissionsOfTheResourceWithTheAlias(user, publicshare, resourceAlias string) error {

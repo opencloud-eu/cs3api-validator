@@ -1,0 +1,46 @@
+FROM golang:1.24-alpine AS build
+ARG TARGETARCH
+ARG TARGETOS
+
+WORKDIR /opencloud-eu/cs3api-validator
+
+COPY ../go.mod ../go.sum .
+RUN go mod download
+
+COPY ../ .
+RUN GOOS="${TARGETOS}" GOARCH="${TARGETARCH}" go test -c -o bin/cs3api-validator.test
+
+FROM alpine:3.21
+
+ARG VERSION=""
+ARG REVISION=""
+
+RUN apk update && \
+	apk upgrade && \
+	apk add ca-certificates mailcap tree attr && \
+	rm -rf /var/cache/apk/* && \
+	echo 'hosts: files dns' >| /etc/nsswitch.conf
+
+LABEL maintainer="openCloud GmbH <devops@opencloud.eu>" \
+  org.opencontainers.image.title="CS3Api Validator" \
+  org.opencontainers.image.vendor="openCloud GmbH" \
+  org.opencontainers.image.authors="openCloud GmbH" \
+  org.opencontainers.image.description="CS3Api Validator E2E testing tool for the CS3Apis" \
+  org.opencontainers.image.licenses="Apache-2.0" \
+  org.opencontainers.image.documentation="https://github.com/opencloud-eu/cs3api-validator" \
+  org.opencontainers.image.url="https://hub.docker.com/r/opencloudeu/cs3api-validator" \
+  org.opencontainers.image.source="https://github.com/opencloud-eu/cs3api-validator" \
+  org.opencontainers.image.version="${VERSION}" \
+  org.opencontainers.image.revision="${REVISION}"
+
+RUN mkdir -p /var/lib/cs3api-validator && \
+    chmod -R 777 /var/lib/cs3api-validator
+
+WORKDIR /opencloud-eu/cs3api-validator
+
+# the validator needs the path to the features file as a first param
+ENTRYPOINT ["/usr/bin/cs3api-validator", "."]
+CMD []
+
+COPY ../features/* /var/lib/cs3api-validator/
+COPY --from=build /opencloud-eu/cs3api-validator/bin/cs3api-validator.test /usr/bin/cs3api-validator

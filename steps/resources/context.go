@@ -2,7 +2,7 @@ package resources
 
 import (
 	"github.com/cucumber/godog"
-	"github.com/owncloud/cs3api-validator/featurecontext"
+	"github.com/opencloud-eu/cs3api-validator/featurecontext"
 )
 
 // ResourcesFeatureContext holds values which are used across test steps

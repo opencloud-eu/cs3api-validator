@@ -8,8 +8,8 @@ import (
 	rpc "github.com/cs3org/go-cs3apis/cs3/rpc/v1beta1"
 	providerv1beta1 "github.com/cs3org/go-cs3apis/cs3/storage/provider/v1beta1"
 	types "github.com/cs3org/go-cs3apis/cs3/types/v1beta1"
-	"github.com/owncloud/cs3api-validator/featurecontext"
-	"github.com/owncloud/cs3api-validator/helpers"
+	"github.com/opencloud-eu/cs3api-validator/featurecontext"
+	"github.com/opencloud-eu/cs3api-validator/helpers"
 	"github.com/stretchr/testify/assert"
 )
 

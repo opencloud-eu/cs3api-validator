@@ -7,8 +7,8 @@ import (
 
 	"github.com/cucumber/godog"
 	"github.com/cucumber/godog/colors"
-	"github.com/owncloud/cs3api-validator/featurecontext"
-	"github.com/owncloud/cs3api-validator/scenario"
+	"github.com/opencloud-eu/cs3api-validator/featurecontext"
+	"github.com/opencloud-eu/cs3api-validator/scenario"
 	flag "github.com/spf13/pflag"
 )
 

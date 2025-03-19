@@ -4,8 +4,8 @@ import (
 	"context"
 
 	gateway "github.com/cs3org/go-cs3apis/cs3/gateway/v1beta1"
-	"github.com/owncloud/cs3api-validator/featurecontext"
-	"github.com/owncloud/cs3api-validator/helpers"
+	"github.com/opencloud-eu/cs3api-validator/featurecontext"
+	"github.com/opencloud-eu/cs3api-validator/helpers"
 
 	rpc "github.com/cs3org/go-cs3apis/cs3/rpc/v1beta1"
 	"github.com/stretchr/testify/assert"

@@ -2,7 +2,7 @@ package publicshare
 
 import (
 	"github.com/cucumber/godog"
-	"github.com/owncloud/cs3api-validator/featurecontext"
+	"github.com/opencloud-eu/cs3api-validator/featurecontext"
 )
 
 // PublicShareFeatureContext holds values which are used across test steps

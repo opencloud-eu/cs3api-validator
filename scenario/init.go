@@ -2,7 +2,7 @@ package scenario
 
 import (
 	"github.com/cucumber/godog"
-	fc "github.com/owncloud/cs3api-validator/featurecontext"
+	fc "github.com/opencloud-eu/cs3api-validator/featurecontext"
 )
 
 // Endpoint the address of the grpc cs3api provider
