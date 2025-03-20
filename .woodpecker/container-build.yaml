@@ -23,7 +23,7 @@ steps:
     when:
       - event: pull_request
   - image: woodpeckerci/plugin-docker-buildx:latest
-    name: docker
+    name: build-and-push
     settings:
       auto_tag: true
       build_args:
@@ -48,6 +48,32 @@ steps:
       platforms: linux/amd64,linux/arm64
       pull_image: false
       repo: opencloudeu/cs3api-validator,quay.io/opencloudeu/cs3api-validator
+    when:
+      - event: tag
+      - event: push
+        branch: ${CI_REPO_DEFAULT_BRANCH}
+  - name: push-docker-readme
+    image: chko/docker-pushrm:1
+    environment:
+      DOCKER_USER:
+        from_secret: docker_username
+      DOCKER_PASS:
+        from_secret: docker_password
+      PUSHRM_TARGET: opencloudeu/cs3api-validator
+      PUSHRM_SHORT: Docker images for cs3api-validator
+      PUSHRM_FILE: README.md
+    when:
+      - event: tag
+      - event: push
+        branch: ${CI_REPO_DEFAULT_BRANCH}
+  - name: push-quay-readme
+    image: chko/docker-pushrm:1
+    environment:
+      APIKEY__QUAY_IO:
+        from_secret: quay_apikey
+      PUSHRM_TARGET: quay.io/opencloudeu/cs3api-validator
+      PUSHRM_FILE: README.md
+      PUSHRM_PROVIDER: quay
     when:
       - event: tag
       - event: push
