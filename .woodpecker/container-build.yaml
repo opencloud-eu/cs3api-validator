@@ -50,6 +50,10 @@ steps:
       repo: opencloudeu/cs3api-validator,quay.io/opencloudeu/cs3api-validator
     when:
       - event: tag
+      - event: push
+        branch: ${CI_REPO_DEFAULT_BRANCH}
 when:
   - event: pull_request
   - event: tag
+  - event: push
+    branch: ${CI_REPO_DEFAULT_BRANCH}
