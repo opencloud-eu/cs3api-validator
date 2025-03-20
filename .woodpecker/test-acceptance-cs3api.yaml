@@ -1,0 +1,38 @@
+---
+depends_on:
+  - lint
+
+steps:
+  - name: opencloud
+    image: quay.io/opencloudeu/opencloud-rolling:latest
+    commands:
+      - opencloud init --insecure true
+      - opencloud server
+    detach: true
+    environment:
+      AUTH_BASIC_DEBUG_ADDR: 0.0.0.0:9147
+      GATEWAY_GRPC_ADDR: 0.0.0.0:9142
+      IDM_ADMIN_PASSWORD: admin
+      IDM_CREATE_DEMO_USERS: true
+      OC_LOG_LEVEL: error
+      OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
+      OC_URL: https://opencloud:9200
+      PROXY_ENABLE_BASIC_AUTH: true
+  - name: wait-for-opencloud
+    image: owncloudci/wait-for:latest
+    commands:
+      - wait-for -it opencloud:9147 -t 300
+  - name: add-user
+    commands:
+      - curl 'https://opencloud:9200/graph/v1.0/users' -k -X POST  --data-raw '{"onPremisesSamAccountName":"marie","displayName":"Marie Curie","mail":"marie@opencloud.eu","passwordProfile":{"password":"radioactivity"}}' -uadmin:admin
+    image: golang:1.24
+  - name: test
+    image: golang:1.24
+    commands:
+      - go test --endpoint=opencloud:9142 -v
+
+when:
+  - event: pull_request
+  - event: tag
+  - event: push
+    branch: main

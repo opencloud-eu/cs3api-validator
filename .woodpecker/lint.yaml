@@ -1,0 +1,13 @@
+---
+depends_on: []
+
+steps:
+  - commands:
+      - golangci-lint run -v
+    image: golangci/golangci-lint:latest
+    name: validate-go
+when:
+  - event: pull_request
+  - event: tag
+  - event: push
+    branch: main
