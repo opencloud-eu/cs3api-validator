@@ -3,6 +3,7 @@ package resources
 import (
 	"context"
 	"fmt"
+	"io"
 	"net/http"
 	"path/filepath"
 	"strconv"
@@ -190,7 +191,14 @@ func (f *ResourcesFeatureContext) userHasUploadedAFileWithContentInTheHomeDirect
 		if err != nil {
 			return err
 		}
-		defer httpRes.Body.Close()
+		defer func(Body io.ReadCloser) {
+			if tempErr := Body.Close(); tempErr != nil {
+				err = tempErr
+			}
+		}(httpRes.Body)
+		if err != nil {
+			return err
+		}
 		if httpRes.StatusCode != http.StatusOK {
 			if httpRes.StatusCode == http.StatusPartialContent {
 				return fmt.Errorf("partial content")
@@ -493,7 +501,7 @@ func (f *ResourcesFeatureContext) userMovesTheResourceWithAliasInsideASpaceToTar
 	// abort if target already exists
 	if tStat.Status.Code != rpc.Code_CODE_NOT_FOUND {
 		if tStat.Status.Code == rpc.Code_CODE_OK {
-			return fmt.Errorf("Resource already exists")
+			return fmt.Errorf("resource already exists")
 		}
 		return helpers.FormatError(tStat.Status)
 	}
