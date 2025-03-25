@@ -22,10 +22,6 @@ steps:
     image: owncloudci/wait-for:latest
     commands:
       - wait-for -it opencloud:9147 -t 300
-  - name: add-user
-    commands:
-      - curl 'https://opencloud:9200/graph/v1.0/users' -k -X POST  --data-raw '{"onPremisesSamAccountName":"marie","displayName":"Marie Curie","mail":"marie@opencloud.eu","passwordProfile":{"password":"radioactivity"}}' -uadmin:admin
-    image: golang:1.24
   - name: test
     image: golang:1.24
     commands:
